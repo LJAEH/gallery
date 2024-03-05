@@ -2,20 +2,37 @@
     <div class="card shadow-sm">
         <img class="img-style" :src="item.imgPath" alt="">
         <div class="card-body">
-        <p class="card-text">{{ item.name }}</p>
+            <div>
+                <span class="card-text">{{ item.name }}</span>            
+                <span class="discount badge bg-danger" style="margin-left: 10px;">
+                    {{ numberFormatter(item.discountPer) }}%
+                </span>
+            </div>
         <div class="d-flex justify-content-between align-items-center">
             <button class="btn btn-primary">구입하기</button>
-            <small class="text-muted">{{ item.price }} 원</small>
+            <small class="price text-muted">
+                {{ numberFormatter(item.price) }}원 
+            </small>
+
+            <span class="real text-danger">
+                {{ numberFormatter(item.price-(item.price*item.discountPer/100)) }}원 
+            </span>
         </div>
         </div>
     </div>
 </template>
 
 <script>
+
 export default {
     name : "Card",
     props:{
         item : Object
+    },
+    methods: {
+        numberFormatter(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
     }
 }
 
@@ -42,6 +59,15 @@ export default {
     width: 100%;
     height: 250px; /* 최대 높이 설정 */
     object-fit: cover; /* 이미지 비율 유지 */
+}
+
+.card .card-body .price {
+    text-decoration: line-through;
+}
+
+
+.discount {
+
 }
 
 

@@ -1,7 +1,7 @@
 <template>
 
 <HeaderComponent></HeaderComponent>
-<Home></Home>
+<router-view/>
 <FooterComponent></FooterComponent>
 
 </template>
@@ -9,12 +9,10 @@
 <script>
 import HeaderComponent from './components/HeaderComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
-import Home from './pages/Home.vue';
 
 export default {
   name: 'App',
   components: {
-    Home,
     HeaderComponent,
     FooterComponent
 }
