@@ -9,13 +9,31 @@
 <script>
 import HeaderComponent from './components/HeaderComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
+import store from './scripts/store';
+import { useRoute } from 'vue-router';
+import { watch } from 'vue';
+import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
     HeaderComponent,
     FooterComponent
-}
+  },
+  setup() {
+    const check = () => {
+      axios.get("/api/account/check").then(({data}) => {
+        console.log("토큰 데이터 : " + data );
+        store.commit("setAccount", data || 0);
+      })
+    };
+
+    const route = useRoute();
+
+    watch(route, () => {
+      check();
+    })
+  }
 }
 </script>
 

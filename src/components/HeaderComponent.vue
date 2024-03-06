@@ -12,7 +12,7 @@
             </li>
             <li>
               <router-link to="/login" class="text-white" v-if="!$store.state.account.id">로그인</router-link>
-              <router-link to="/login" class="text-white" v-else>로그아웃</router-link>
+              <a to="/logout" class="text-white" @click="logout()" v-else>로그아웃</a>
             </li>
           </ul>
         </div>
@@ -35,8 +35,22 @@
 </template>
 
 <script>
+import router from '@/scripts/router';
+import store from '@/scripts/store';
+import axios from 'axios';
+
 export default {
-  name: 'HeaderComponent'
+  name: 'HeaderComponent',
+  setup() {
+    const logout = () => {
+      axios.post("/api/account/logout").then(()=>{
+        store.commit('setAccount', 0);
+        router.push({path: "/"});
+        window.alert("로그아웃되었습니다.")
+      });
+    }
+    return {logout}
+  }
 }
 </script>
 

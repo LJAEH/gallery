@@ -33,7 +33,6 @@ export default ({
       })
       axios.get("/api/items").then(({data}) => {
         state.items = data;
-        console.log(data);
       })
 
       return {state}
