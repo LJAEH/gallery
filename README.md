@@ -1,5 +1,8 @@
 # frontend
 
+### VUE 로 프론트 구성 
+VUE, VUE/CLI, VUEX 등
+
 ## Project setup
 ```
 npm install
