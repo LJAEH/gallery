@@ -33,11 +33,11 @@
                 <!-- 주소등록 api -->
                 <!-- <button class="postCode" @click="postPopup()"> 주소 등록 </button> 
                 <input type="text" v-model="postcode" placeholder="우편번호"> -->
-                <input type="text" class="form-control" v-model="state.form.address" placeholder="">
+                <input type="text" class="form-control" v-model="state.form.address" >
                 <div class="invalid-feedback"> 주소를 입력해주세요 </div>
               </div>
               <div class="col-12"><label for="address" class="form-label">상세 주소</label>
-                <input type="text" class="form-control" v-model="state.form.address" placeholder="" required="">
+                <input type="text" class="form-control" v-model="state.form.detailAddress" >
                 <div class="invalid-feedback"> 주소를 입력해주세요 </div>
               </div>
             </div>
@@ -45,11 +45,11 @@
             <h4 class="mb-3">결제수단</h4>
             <div class="my-3">
               <div class="form-check">
-                <input id="card" name="paymentMethod" type="radio" class="form-check-input" checked="" v-model="state.form.payment" value="card">
+                <input id="card" name="paymentMethod" type="radio" class="form-check-input"  v-model="state.form.payment" value="card">
                 <label class="form-check-label" for="card">신용카드</label>
               </div>
               <div class="form-check">
-                <input id="bank" name="paymentMethod" type="radio" class="form-check-input" required="" v-model="state.form.payment" value="bank">
+                <input id="bank" name="paymentMethod" type="radio" class="form-check-input"  v-model="state.form.payment" value="bank">
                 <label class="form-check-label" for="bank">무통장입금</label>
               </div>
             </div>
@@ -113,7 +113,9 @@ export default {
     })
 
     const submit = () => {
-      axios.post("/api/orders" ,state.form).then(()=>{
+      const args = JSON.parse(JSON.stringify(state.form));
+      args.items = JSON.stringify(state.items);
+      axios.post("/api/orders" , args ).then(()=>{
         console.log('orderSuccess');
       }) 
     }
